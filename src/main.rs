@@ -55,7 +55,7 @@ fn App() -> Element {
 
     rsx! {
         main { class: "mx-auto max-w-3xl px-6 pb-20",
-            div { class: "pt-16",
+            div { class: "pt-6 min-[950px]:pt-16",
                 form { class: "mb-8", onsubmit: on_submit,
                     input {
                         aria_label: "enter title",
