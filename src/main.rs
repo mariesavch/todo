@@ -22,56 +22,12 @@ pub struct Todo {
 #[component]
 fn App() -> Element {
     let mut todos = use_synced_storage::<LocalStorage, Vec<Todo>>("todos".to_string(), || {
-        vec![
-            Todo {
-                title: "task 1".to_string(),
-                description: "task 1 desc".to_string(),
-                completed: true,
-                id: 1,
-            },
-            Todo {
-                title: "task 2".to_string(),
-                description: "task 2 desc".to_string(),
-                completed: false,
-                id: 2,
-            },
-            Todo {
-                title: "task 3".to_string(),
-                description: "task 3 desc".to_string(),
-                completed: false,
-                id: 3,
-            },
-            Todo {
-                title: "task 4".to_string(),
-                description: "task 4 desc".to_string(),
-                completed: false,
-                id: 4,
-            },
-            Todo {
-                title: "task 5".to_string(),
-                description: "task 5 desc".to_string(),
-                completed: false,
-                id: 5,
-            },
-            Todo {
-                title: "task 6".to_string(),
-                description: "task 6 desc".to_string(),
-                completed: false,
-                id: 6,
-            },
-            Todo {
-                title: "task 7".to_string(),
-                description: "task 7 desc".to_string(),
-                completed: false,
-                id: 7,
-            },
-            Todo {
-                title: "task 8".to_string(),
-                description: "task 8 desc".to_string(),
-                completed: false,
-                id: 8,
-            },
-        ]
+        vec![Todo {
+            title: "sample task".to_string(),
+            description: "and description here".to_string(),
+            completed: true,
+            id: 1,
+        }]
     });
 
     let mut title = use_signal(|| "".to_string());
