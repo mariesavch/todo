@@ -3,7 +3,7 @@
 use dioxus::prelude::*;
 use dioxus_sdk::storage::*;
 use serde::{Deserialize, Serialize};
-use tailwind_fuse::{merge::tw_merge, tw_merge};
+use tailwind_fuse::tw_merge;
 
 const _TAILWIND_URL: &str = manganis::mg!(file("assets/tailwind.css"));
 
