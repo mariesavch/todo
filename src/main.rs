@@ -3,6 +3,7 @@
 use dioxus::prelude::*;
 use dioxus_sdk::storage::*;
 use serde::{Deserialize, Serialize};
+use tailwind_fuse::{merge::tw_merge, tw_merge};
 
 const _TAILWIND_URL: &str = manganis::mg!(file("assets/tailwind.css"));
 
@@ -21,14 +22,7 @@ pub struct Todo {
 
 #[component]
 fn App() -> Element {
-    let mut todos = use_synced_storage::<LocalStorage, Vec<Todo>>("todos".to_string(), || {
-        vec![Todo {
-            title: "sample task".to_string(),
-            description: "and description here".to_string(),
-            completed: true,
-            id: 1,
-        }]
-    });
+    let mut todos = use_synced_storage::<LocalStorage, Vec<Todo>>("todos".to_string(), || vec![]);
 
     let mut title = use_signal(|| "".to_string());
     let mut description = use_signal(|| "".to_string());
@@ -63,11 +57,13 @@ fn App() -> Element {
                         r#type: "text",
                         value: "{title}",
                         oninput: move |e| title.set(e.value().clone()),
-                        class: "rounded-t-lg lg:rounded-none lg:rounded-l-lg w-full
-                                lg:w-2/5 border border-surface0 bg-base py-2 px-4
-                                outline-none transition-colors duration-300
-                                placeholder:text-overlay0 hover:border-surface1
-                                focus:text-text focus:border-surface2 mr-[-1] mb-[-1]"
+                        class: tw_merge!(
+                            "rounded-t-lg lg:rounded-none lg:rounded-l-lg w-full",
+                            "lg:w-2/5 border border-surface0 bg-base py-2 px-4",
+                            "outline-none transition-colors duration-300",
+                            "placeholder:text-overlay0 hover:border-surface1",
+                            "focus:text-text focus:border-surface2 mr-[-1] mb-[-1]"
+                        )
                     }
                     input {
                         aria_label: "enter description",
@@ -75,20 +71,23 @@ fn App() -> Element {
                         r#type: "text",
                         value: "{description}",
                         oninput: move |e| description.set(e.value().clone()),
-                        class: "rounded-none border w-full lg:w-2/5
-                                border-surface0 bg-base py-2 px-4
-                                outline-none transition-colors duration-300
-                                placeholder:text-overlay0 hover:border-surface1
-                                focus:text-text focus:border-surface2 mr-[-1] mb-[-1]"
+                        class: tw_merge!(
+                            "rounded-none border w-full lg:w-2/5", "border-surface0 bg-base py-2 px-4",
+                            "outline-none transition-colors duration-300",
+                            "placeholder:text-overlay0 hover:border-surface1",
+                            "focus:text-text focus:border-surface2 mr-[-1] mb-[-1]"
+                        )
                     }
                     input {
                         r#type: "submit",
                         value: "add",
-                        class: "rounded-b-lg lg:rounded-none lg:rounded-r-lg border w-full
-                                lg:w-1/5 border-surface0 bg-base py-2 px-4
-                                outline-none transition-colors duration-300
-                                placeholder:text-overlay0 hover:border-surface1
-                                focus:text-text focus:border-surface2"
+                        class: tw_merge!(
+                            "rounded-b-lg lg:rounded-none lg:rounded-r-lg border w-full",
+                            "lg:w-1/5 border-surface0 bg-base py-2 px-4",
+                            "outline-none transition-colors duration-300",
+                            "placeholder:text-overlay0 hover:border-surface1",
+                            "focus:text-text focus:border-surface2"
+                        )
                     }
                 }
                 ul { class: "animated-list",
@@ -101,8 +100,8 @@ fn App() -> Element {
                                     todolist.insert(i, todo);
                                     todos.set(todolist);
                                 },
-                            span { class: [if todo.completed {"line-through"} else {""}, "font-bold mr-5"].join(" "), "{todo.title}"}
-                            span { class: [if todo.completed {"line-through"} else {""}, "text-overlay0 italic"].join(" "), "{todo.description}"}
+                            span { class: tw_merge!(if todo.completed {"line-through"} else {""}, "font-bold mr-5"), "{todo.title}"}
+                            span { class: tw_merge!(if todo.completed {"line-through"} else {""}, "text-overlay0 italic"), "{todo.description}"}
                         }
                         button { class: "ml-auto underlined",
                         onclick: move |_| {
